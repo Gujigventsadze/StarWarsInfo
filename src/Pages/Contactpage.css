@@ -1,0 +1,84 @@
+.contact-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Anton";
+    gap: 1rem;
+    box-sizing: border-box;
+    padding: 3rem 0;
+}
+.contact-header {
+    font-size: 3rem;
+    font-family: "Montserrat";
+    font-weight: 500;
+}
+.email-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 30%;
+}
+.email-form input,
+textarea {
+    font-size: 1.3rem;
+    box-sizing: border-box;
+    padding: 1rem 3rem;
+    outline: none;
+    border: none;
+    box-shadow: 0 0 3px gray;
+    border-radius: 1rem;
+    font-family: "Montserrat";
+}
+.email-form textarea {
+    resize: none;
+    height: 10rem;
+}
+.input-btn {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    transition: opacity 0.15s;
+}
+.input-btn:hover {
+    opacity: 0.8;
+}
+.input-btn:active {
+    opacity: 0.6;
+}
+.success {
+    opacity: 0;
+    color: green;
+    font-family: "Montserrat";
+    transition: 0.3s;
+}
+.error {
+    opacity: 0;
+    color: red;
+    font-family: "Montserrat";
+    transition: 0.3s;
+}
+.success-visible {
+    opacity: 1;
+    color: green;
+    font-family: "Montserrat";
+    transition: 0.3s;
+}
+.error-visible {
+    opacity: 1;
+    color: red;
+    font-family: "Montserrat";
+    transition: 0.3s;
+}
+
+/* Responsive Layout */
+
+@media (max-width: 769px) {
+    .email-form {
+        width: 75%;
+    }
+}
+@media (max-width: 426px) {
+    .email-form {
+        width: 95%;
+    }
+}

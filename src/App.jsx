@@ -8,6 +8,7 @@ import Planetdetailspage from "./Pages/Planetdetailspage";
 import Starshipdetailspage from "./Pages/Starshipdetailspage";
 import { AnimatePresence } from "framer-motion";
 import Aboutpage from "./Pages/Aboutpage";
+import Contactpage from "./Pages/Contactpage";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
               element={<Starshipdetailspage />}
             />
             <Route path="/about" element={<Aboutpage />} />
+            <Route path="/contact" element={<Contactpage />} />
           </Routes>
         </AnimatePresence>
       </BrowserRouter>

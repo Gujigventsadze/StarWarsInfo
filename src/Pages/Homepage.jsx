@@ -18,11 +18,13 @@ const Homepage = () => {
   const params = new URLSearchParams(location.search);
   const initialCategory = params.get("category") || "People";
   const initialPage = parseInt(params.get("page")) || 1;
+  const initialSearch = params.get("search") || "";
 
   const [category, setCategory] = useState(initialCategory);
-  const [searchWord, setSearchWord] = useState("");
+  const [searchWord, setSearchWord] = useState(initialSearch);
   const [currentPage, setCurrentPage] = useState(initialPage);
   const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
 
   const API_URL = `${API}${category.toLowerCase()}?page=${currentPage}`;
@@ -40,11 +42,19 @@ const Homepage = () => {
     fetchData();
   }, [category, currentPage, API_URL]);
 
+  // Filter data based on search term
+  useEffect(() => {
+    const filtered = data.filter((item) =>
+      item.name.toLowerCase().includes(searchWord.toLowerCase())
+    );
+    setFilteredData(filtered);
+  }, [searchWord, data]);
+
   const goToNextPage = () => {
     if (currentPage < totalPages) {
       const nextPage = currentPage + 1;
-      setCurrentPage(nextPage, category);
-      updateUrl(nextPage, category);
+      setCurrentPage(nextPage);
+      updateUrl(nextPage, category, searchWord);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
@@ -52,8 +62,8 @@ const Homepage = () => {
   const goToPreviousPage = () => {
     if (currentPage > 1) {
       const prevPage = currentPage - 1;
-      setCurrentPage(prevPage, category);
-      updateUrl(prevPage, category);
+      setCurrentPage(prevPage);
+      updateUrl(prevPage, category, searchWord);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
@@ -61,11 +71,16 @@ const Homepage = () => {
   const handleCategoryChange = (newCategory) => {
     setCategory(newCategory);
     setCurrentPage(1);
-    updateUrl(1, newCategory);
+    updateUrl(1, newCategory, searchWord);
   };
 
-  const updateUrl = (page, category = category) => {
-    navigate(`/?category=${category}&page=${page}`);
+  const handleSearchChange = (e) => {
+    setSearchWord(e.target.value);
+    updateUrl(1, category, e.target.value);
+  };
+
+  const updateUrl = (page, category = category, searchWord = "") => {
+    navigate(`/?category=${category}&page=${page}&search=${searchWord}`);
   };
 
   return (
@@ -75,9 +90,9 @@ const Homepage = () => {
           <input
             className="name-search"
             type="text"
-            placeholder="Name"
+            placeholder="Search Name"
             value={searchWord}
-            onChange={(e) => setSearchWord(e.target.value)}
+            onChange={handleSearchChange}
           />
           <select
             className="categories"
@@ -93,18 +108,18 @@ const Homepage = () => {
       </form>
 
       <div className="results">
-        {data.length === 0 ? (
-          <p className="loading">Loading...</p>
+        {filteredData.length === 0 ? (
+          <p className="loading">No Data Found</p>
         ) : category === "People" ? (
-          data.map((char, index) => (
+          filteredData.map((char, index) => (
             <Peoplebox key={index} char={char} img={trooper} />
           ))
         ) : category === "Planets" ? (
-          data.map((planet, index) => (
+          filteredData.map((planet, index) => (
             <Planetbox key={index} planet={planet} img={planetImg} />
           ))
         ) : category === "Starships" ? (
-          data.map((starship, index) => (
+          filteredData.map((starship, index) => (
             <Starshipbox key={index} starship={starship} img={starshipImg} />
           ))
         ) : (

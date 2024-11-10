@@ -6,6 +6,8 @@ import Homepage from "./Pages/Homepage";
 import Details from "./Pages/Detailspage";
 import Planetdetailspage from "./Pages/Planetdetailspage";
 import Starshipdetailspage from "./Pages/Starshipdetailspage";
+import { AnimatePresence } from "framer-motion";
+import Aboutpage from "./Pages/Aboutpage";
 
 function App() {
   return (
@@ -13,15 +15,21 @@ function App() {
       <BrowserRouter>
         <Preloader />
         <Navbar />
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/details/:name" element={<Details />} />
-          <Route path="/planet-details/:name" element={<Planetdetailspage />} />
-          <Route
-            path="/starship-details/:name"
-            element={<Starshipdetailspage />}
-          />
-        </Routes>
+        <AnimatePresence mode="wait">
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/details/:name" element={<Details />} />
+            <Route
+              path="/planet-details/:name"
+              element={<Planetdetailspage />}
+            />
+            <Route
+              path="/starship-details/:name"
+              element={<Starshipdetailspage />}
+            />
+            <Route path="/about" element={<Aboutpage />} />
+          </Routes>
+        </AnimatePresence>
       </BrowserRouter>
     </>
   );

@@ -8,6 +8,7 @@ import trooper from "../assets/droid.png";
 import Starshipbox from "../Components/StarshipBox/Starshipbox";
 import starshipImg from "../assets/death-star.png";
 import planetImg from "../assets/language.png";
+import { motion } from "framer-motion";
 
 const Homepage = () => {
   const API = "https://swapi.dev/api/";
@@ -15,11 +16,13 @@ const Homepage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  //Parameters
   const params = new URLSearchParams(location.search);
   const initialCategory = params.get("category") || "People";
   const initialPage = parseInt(params.get("page")) || 1;
   const initialSearch = params.get("search") || "";
 
+  // States for the Application
   const [category, setCategory] = useState(initialCategory);
   const [searchWord, setSearchWord] = useState(initialSearch);
   const [currentPage, setCurrentPage] = useState(initialPage);
@@ -27,8 +30,10 @@ const Homepage = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
 
+  // Dynamically generating url
   const API_URL = `${API}${category.toLowerCase()}?page=${currentPage}`;
 
+  //Fetching data from the url and figuring out how many pages we need
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -42,7 +47,7 @@ const Homepage = () => {
     fetchData();
   }, [category, currentPage, API_URL]);
 
-  // Filter data based on search term
+  // Filtering data whenever the search word changes
   useEffect(() => {
     const filtered = data.filter((item) =>
       item.name.toLowerCase().includes(searchWord.toLowerCase())
@@ -50,6 +55,7 @@ const Homepage = () => {
     setFilteredData(filtered);
   }, [searchWord, data]);
 
+  // Going to next or previous page and updating url accordingly
   const goToNextPage = () => {
     if (currentPage < totalPages) {
       const nextPage = currentPage + 1;
@@ -68,6 +74,7 @@ const Homepage = () => {
     }
   };
 
+  //Self-explanatory :)
   const handleCategoryChange = (newCategory) => {
     setCategory(newCategory);
     setCurrentPage(1);
@@ -78,13 +85,19 @@ const Homepage = () => {
     setSearchWord(e.target.value);
     updateUrl(1, category, e.target.value);
   };
-
+  //Also self explanatory :)
   const updateUrl = (page, category = category, searchWord = "") => {
     navigate(`/?category=${category}&page=${page}&search=${searchWord}`);
   };
 
   return (
-    <div className="homepage">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1 }}
+      className="homepage"
+    >
       <form className="search-bar-container">
         <div className="inputs">
           <input
@@ -146,7 +159,7 @@ const Homepage = () => {
           Next
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

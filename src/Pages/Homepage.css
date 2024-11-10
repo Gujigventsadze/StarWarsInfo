@@ -1,0 +1,107 @@
+.homepage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.search-bar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    box-sizing: border-box;
+    padding: 1rem 0;
+    width: 100%;
+}
+.loading {
+    display: flex;
+    justify-content: center;
+    font-size: 2rem;
+    font-family: "Anton";
+}
+.inputs {
+    display: flex;
+    box-sizing: border-box;
+}
+.name-search,
+.categories {
+    font-size: 1.5rem;
+    box-sizing: border-box;
+    padding: 1rem 3rem;
+    outline: none;
+    font-family: "Montserrat";
+    font-weight: 500;
+    border: none;
+    box-shadow: 0 0 3px gray;
+}
+.name-search {
+    border-top-left-radius: 5rem;
+    border-bottom-left-radius: 5rem;
+}
+.categories {
+    border-top-right-radius: 5rem;
+    border-bottom-right-radius: 5rem;
+}
+
+.results {
+    box-sizing: border-box;
+    padding: 3rem 0;
+    display: grid;
+    width: 75%;
+    gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+}
+
+.page-btn {
+    border: none;
+    font-size: 1.1rem;
+    box-sizing: border-box;
+    padding: 0.3rem 0.7rem;
+    margin: 10px;
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    font-family: "Montserrat";
+    border-radius: 2rem;
+    transition: opacity 0.15s;
+}
+.page-btn:hover {
+    opacity: 0.7;
+}
+.page-btn:active {
+    opacity: 0.5;
+}
+.page-count {
+    font-family: "Montserrat";
+    font-size: 1.2rem;
+}
+
+/* Responsive Layout */
+@media (max-width: 769px) {
+    .search-btn {
+        width: 50%;
+    }
+    .results {
+        grid-template-columns: repeat(1, 1fr);
+        width: 95%;
+    }
+}
+
+@media (max-width: 426px) {
+    .search-bar-container {
+        gap: 0;
+    }
+    .inputs {
+        flex-direction: column;
+        padding: 1rem 1rem;
+        gap: 0.5rem;
+    }
+    .categories,
+    .name-search {
+        border-radius: 5rem;
+        width: 100%;
+    }
+    .search-btn {
+        width: 70%;
+    }
+}

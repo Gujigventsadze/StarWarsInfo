@@ -1,0 +1,52 @@
+.people-container {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 2rem 3rem; 
+    border: 1px solid gray;
+    gap: 1rem;
+    font-family: "Anton";
+    width: 100%;
+    align-items: center;
+    border-radius: 1rem;
+    cursor: pointer;
+    justify-content: space-between;
+    transition: 0.3s;
+}
+.people-container:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 8px gray;
+}
+
+
+.people-name {
+    font-size: 2rem;
+    text-align: center;
+}
+
+.gender-age {
+    font-size: 1.3rem;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    text-align: center;
+}
+.people-type {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 1.2rem;
+}
+
+.people-type img {
+    height: 2rem;
+}
+
+@media (max-width: 426px) {
+    .people-container {
+        padding: 1rem 1rem;
+    }
+    .gender-age {
+        flex-direction: column;
+    }
+}
